@@ -18,16 +18,34 @@ function App() {
   const handleOnLogout = () => {
     setPaginaActual("login");
   };
+  /* const handleIrATransacciones=()=>{
+    setPaginaActual("transacciones");
+  }
+  const handleIrAHistórico=()=>{
+    setPaginaActual("historico");
+  }
+  const handleIrAPerfil=()=>{
+    setPaginaActual("perfil");
+  } */
+  const handleCambiarDeVista = (vista) => {
+    if (!vista) {
+      return;
+    }
+    if (["perfil", "transacciones", "historico"].includes(vista)) {
+      setPaginaActual(vista);
+    }
+  };
   return (
     <Fragment>
       {paginaActual === "login" ? (
         <Login onLogin={handleOnLogin} />
       ) : (
         <Fragment>
-          <BarraNavegacion>
-            {paginaActual === "perfil" && (
-              <Perfil onCerarSesion={handleOnLogout} />
-            )}
+          <BarraNavegacion
+            onCerarSesion={handleOnLogout}
+            onCambioDeVista={handleCambiarDeVista}
+          >
+            {paginaActual === "perfil" && <Perfil />}
             {paginaActual === "transacciones" && <Transacciones />}
             {paginaActual === "historico" && <Historico />}
           </BarraNavegacion>

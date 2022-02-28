@@ -13,10 +13,17 @@ import ListItemText from "@mui/material/ListItemText";
 import UpdateIcon from "@mui/icons-material/Update";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import LogoutIcon from "@mui/icons-material/Logout";
 const drawerWidth = 240;
 
 const BarraNavegacion = (props) => {
-  const { children } = props;
+  const { children, onCerarSesion, onCambioDeVista } = props;
+  const handleCerrarSesion = () => {
+    onCerarSesion?.();
+  };
+  function handleCLickOpcion(vista){
+    onCambioDeVista?.(vista);
+  }
   return (
     <React.Fragment>
       <Box sx={{ display: "flex" }}>
@@ -49,32 +56,38 @@ const BarraNavegacion = (props) => {
           <Toolbar />
           <Divider />
           <List>
-            <ListItem button key={0}>
+            <ListItem button key={0} onClick={()=>handleCLickOpcion("transacciones")}>
               <ListItemIcon>
                 <AccountBalanceIcon />
               </ListItemIcon>
               <ListItemText primary={"Transacciones"} />
             </ListItem>
 
-            <ListItem button key={0}>
+            <ListItem button key={0} onClick={()=>handleCLickOpcion("perfil")}>
               <ListItemIcon>
                 <AccountCircleIcon />
               </ListItemIcon>
               <ListItemText primary={"Perfil"} />
             </ListItem>
 
-            <ListItem button key={0}>
+            <ListItem button key={0} onClick={()=>handleCLickOpcion("historico")}>
               <ListItemIcon>
                 <UpdateIcon />
               </ListItemIcon>
               <ListItemText primary={"Histórico"} />
             </ListItem>
           </List>
+          <Divider />
+          <List>
+            <ListItem button key={0} onClick={handleCerrarSesion}>
+              <ListItemIcon>
+                <LogoutIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Cerrar sesión"} />
+            </ListItem>
+          </List>
         </Drawer>
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, bgcolor: "#F8F9FA", p: 3 }}
-        >
+        <Box component="main" sx={{ flexGrow: 1, bgcolor: "#F8F9FA", p: 3 }}>
           <Toolbar />
           {children}
         </Box>
