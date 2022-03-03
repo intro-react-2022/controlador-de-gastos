@@ -44,6 +44,7 @@ function App() {
           <BarraNavegacion
             onCerarSesion={handleOnLogout}
             onCambioDeVista={handleCambiarDeVista}
+            titulo={"Controlador de gastos AEDITIP"}
           >
             {paginaActual === "perfil" && <Perfil />}
             {paginaActual === "transacciones" && <Transacciones />}

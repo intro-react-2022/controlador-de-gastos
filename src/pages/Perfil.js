@@ -1,18 +1,38 @@
 import { Button, Paper, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import BarraNavegacion from "../componentes/BarraNavegacion/BarraNavegacion";
 import SaveIcon from "@mui/icons-material/Save";
+import SelectorFechas from "../componentes/SelectorFechas/SelectorFechas";
 const Perfil = (props) => {
-  const handleCerrarSesion = () => {
-    if (props.onCerarSesion) {
-      props.onCerarSesion();
-    }
+  const [modoEdicion, setModoEdicion] = useState(false);
+  const [nombres, setNombres] = useState("");
+  const [documento, setDocumento] = useState("");
+
+  const handleChangeNombres = (event) => {
+    setNombres(event.target.value);
+  };
+  const handleChangeDocumento = (event) => {
+    setDocumento(event.target.value);
+  };
+  /// Fecha
+  const [fechaNacimiento, setFechaNacimiento] = useState(null);
+  const handleChangeFechaNacimiento = (fechaActual) => {
+    setFechaNacimiento(fechaActual);
+  };
+  //Botones
+  const handleModoEdicionOn = () => {
+    setModoEdicion(true);
+  };
+  const handleSave = () => {
+    alert("Se guardaron los cambios");
+    setModoEdicion(false);
   };
   return (
     <div>
       <Typography variant="h2" gutterBottom component="div">
         Perfil
       </Typography>
+
       <Paper elevation={3}>
         <div
           style={{
@@ -36,8 +56,10 @@ const Perfil = (props) => {
               id="outlined-required"
               label="Nombres"
               size="small"
-
+              onChange={handleChangeNombres}
               //defaultValue="Hello World"
+              disabled={!modoEdicion}
+              value={nombres}
             />
             <TextField
               style={paddingInferior}
@@ -46,6 +68,8 @@ const Perfil = (props) => {
               size="small"
               label="Documento de Identidad"
               //defaultValue="Hello World"
+              disabled={!modoEdicion}
+              value={documento}
             />
             <TextField
               style={paddingInferior}
@@ -53,7 +77,7 @@ const Perfil = (props) => {
               id="outlined-required"
               label="Dirección"
               size="small"
-              //defaultValue="Hello World"
+              disabled={!modoEdicion}
             />
             <TextField
               style={paddingInferior}
@@ -61,7 +85,7 @@ const Perfil = (props) => {
               id="outlined-required"
               label="Teléfono"
               size="small"
-              //defaultValue="Hello World"
+              disabled={!modoEdicion}
             />
             <TextField
               style={paddingInferior}
@@ -69,7 +93,7 @@ const Perfil = (props) => {
               id="outlined-required"
               size="small"
               label="Sector laboral"
-              //defaultValue="Hello World"
+              disabled={!modoEdicion}
             />
           </div>
           <div
@@ -86,10 +110,9 @@ const Perfil = (props) => {
               id="outlined-required"
               label="Apellidos"
               size="small"
-
-              //defaultValue="Hello World"
+              disabled={!modoEdicion}
             />
-            <TextField
+            {/*      <TextField
               style={paddingInferior}
               required
               id="outlined-required"
@@ -97,6 +120,14 @@ const Perfil = (props) => {
               size="small"
 
               //defaultValue="Hello World"
+            /> */}
+            <SelectorFechas
+              style={paddingInferior}
+              label="Fecha de Nacimiento"
+              size="small"
+              onChange={handleChangeFechaNacimiento}
+              value={fechaNacimiento}
+              disabled={!modoEdicion}
             />
             <TextField
               style={paddingInferior}
@@ -104,8 +135,7 @@ const Perfil = (props) => {
               id="outlined-required"
               label="Email"
               size="small"
-
-              //defaultValue="Hello World"
+              disabled={!modoEdicion}
             />
             <TextField
               style={paddingInferior}
@@ -113,8 +143,7 @@ const Perfil = (props) => {
               id="outlined-required"
               label="Ocupación"
               size="small"
-
-              //defaultValue="Hello World"
+              disabled={!modoEdicion}
             />
           </div>
         </div>
@@ -132,18 +161,20 @@ const Perfil = (props) => {
           padding: "20px 0",
         }}
       >
-        <Button
-          variant="outlined"
-          onClick={handleCerrarSesion}
-          style={{ marginRight: "5px" }}
-        >
-          Editar
-        </Button>
+        {!modoEdicion && (
+          <Button
+            variant="outlined"
+            onClick={handleModoEdicionOn}
+            style={{ marginRight: "5px" }}
+          >
+            Editar
+          </Button>
+        )}
         <Button
           variant="contained"
-          onClick={handleCerrarSesion}
+          onClick={handleSave}
           startIcon={<SaveIcon />}
-          //disabled
+          disabled={!modoEdicion}
         >
           Guardar
         </Button>

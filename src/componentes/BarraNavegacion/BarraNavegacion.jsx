@@ -17,7 +17,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 const drawerWidth = 240;
 
 const BarraNavegacion = (props) => {
-  const { children, onCerarSesion, onCambioDeVista } = props;
+  const { children, onCerarSesion, onCambioDeVista,titulo } = props;
   const handleCerrarSesion = () => {
     onCerarSesion?.();
   };
@@ -37,7 +37,7 @@ const BarraNavegacion = (props) => {
         >
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              Permanent drawer
+              {titulo}
             </Typography>
           </Toolbar>
         </AppBar>

@@ -1,6 +1,7 @@
 import { Button, Paper, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import PageWrapper from "../componentes/PageWrapper/PageWrapper";
+import { iniciarSesion } from "../conection/auth";
 
 const paddingInferior = {
   marginBottom: "18px",
@@ -9,19 +10,32 @@ const paddingInferior = {
 
 const Login = (props) => {
   const { onLogin } = props;
-  const handleClick = () => {
+  const [credenciales, setCredenciales] = useState({});
+  const handleClickIniciarSesion = () => {
     //alert("Inicio de sesión exitoso!");
     // const response = server.login("usuario", "password")
     //if (response) onLogin(); else{ alert("error")}
+    const { ok, payload, message } = iniciarSesion(
+      credenciales.correo,
+      credenciales.contrasenia
+    );
 
-    if (onLogin) {
-      onLogin();
+    if (ok) {
+      onLogin?.();
+    } else {
+      alert(message);
     }
   };
   const handleRecuperarContrasenia = () => {
     alert("Se ha enviado intrucciones al correo indicado");
   };
 
+  const handleCorreo = (e) => {
+    setCredenciales({ ...credenciales, correo: e.target.value });
+  };
+  const handleContrasenia = (e) => {
+    setCredenciales({ ...credenciales, contrasenia: e.target.value });
+  };
   return (
     <PageWrapper>
       <div
@@ -52,6 +66,7 @@ const Login = (props) => {
             id="outlined-required"
             label="Usuario"
             //defaultValue="Hello World"
+            onChange={handleCorreo}
           />
           <TextField
             style={paddingInferior}
@@ -60,6 +75,7 @@ const Login = (props) => {
             label="Contraseña"
             defaultValue=""
             type="password"
+            onChange={handleContrasenia}
           />
           <div
             style={{
@@ -77,7 +93,7 @@ const Login = (props) => {
             </a>
           </div>
 
-          <Button variant="contained" onClick={handleClick}>
+          <Button variant="contained" onClick={handleClickIniciarSesion}>
             Iniciar sesión
           </Button>
         </Paper>

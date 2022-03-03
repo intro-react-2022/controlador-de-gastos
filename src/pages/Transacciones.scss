@@ -1,0 +1,37 @@
+.contenedor-transacciones {
+  display: flex;
+  width: 100%;
+  /*  .titulo-transacciones{
+        width: 100%;
+    } */
+  .seccion-izquierda {
+    width: 65%;
+    //outline: 1px solid crimson;
+    padding: 20px;
+  }
+  .seccion-derecha {
+    width: 35%;
+    padding: 20px;
+
+    //outline: 1px solid rgb(20, 71, 15);
+  }
+}
+
+.seccion-cabecera {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.balance-monto {
+    font-size: 25px;
+  &.balance-ingreso {
+    color: green;
+  }
+  &.balance-egreso {
+    color: red;
+  }
+}
+
+.total-label {
+  text-decoration: underline;
+}
