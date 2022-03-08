@@ -1,5 +1,6 @@
 import { Button, Paper, TextField } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import PageWrapper from "../componentes/PageWrapper/PageWrapper";
 import { iniciarSesion } from "../conection/auth";
 
@@ -9,7 +10,9 @@ const paddingInferior = {
 };
 
 const Login = (props) => {
-  const { onLogin } = props;
+  //const { onLogin } = props;
+  let navigate = useNavigate();
+
   const [credenciales, setCredenciales] = useState({});
   const handleClickIniciarSesion = () => {
     //alert("Inicio de sesión exitoso!");
@@ -19,9 +22,10 @@ const Login = (props) => {
       credenciales.correo,
       credenciales.contrasenia
     );
-
+    console.log("Usuario", payload);
     if (ok) {
-      onLogin?.();
+      // aqui se ejecuta
+      navigate("/perfil");
     } else {
       alert(message);
     }

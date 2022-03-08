@@ -52,6 +52,10 @@ function App() {
           </BarraNavegacion>
         </Fragment>
       )}
+    
+
+
+
     </Fragment>
   );
 }

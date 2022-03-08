@@ -14,21 +14,25 @@ import UpdateIcon from "@mui/icons-material/Update";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useNavigate } from "react-router";
 const drawerWidth = 240;
 
 const BarraNavegacion = (props) => {
-  const { children, onCerarSesion, onCambioDeVista,titulo } = props;
+  const { children, titulo } = props;
+  let navigate = useNavigate();
   const handleCerrarSesion = () => {
-    onCerarSesion?.();
+    //onCerarSesion?.();
+    navigate("/");
   };
-  function handleCLickOpcion(vista){
+  /*  function handleCLickOpcion(vista) {
     onCambioDeVista?.(vista);
-  }
+  } */
   return (
     <React.Fragment>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
+          // style={{backgroundColor:"#004d25"}}
           position="fixed"
           sx={{
             width: `calc(100% - ${drawerWidth}px)`,
@@ -56,21 +60,55 @@ const BarraNavegacion = (props) => {
           <Toolbar />
           <Divider />
           <List>
-            <ListItem button key={0} onClick={()=>handleCLickOpcion("transacciones")}>
+            <ListItem
+              button
+              key={0}
+              // onClick={() => handleCLickOpcion("transacciones")}
+              onClick={() => {
+                navigate("/transacciones");
+              }}
+            >
               <ListItemIcon>
                 <AccountBalanceIcon />
               </ListItemIcon>
               <ListItemText primary={"Transacciones"} />
             </ListItem>
 
-            <ListItem button key={0} onClick={()=>handleCLickOpcion("perfil")}>
+            <ListItem
+              button
+              key={0}
+              // onClick={() => handleCLickOpcion("perfil")}
+              onClick={() => {
+                navigate("/perfil");
+              }}
+            >
               <ListItemIcon>
                 <AccountCircleIcon />
               </ListItemIcon>
               <ListItemText primary={"Perfil"} />
             </ListItem>
 
-            <ListItem button key={0} onClick={()=>handleCLickOpcion("historico")}>
+            {/*    <ListItem
+              button
+              key={0}
+              // onClick={() => handleCLickOpcion("perfil")}
+              onClick={() => {
+                window.location.replace("/perfil#seccion-final");
+              }}
+            >
+              <ListItemIcon>
+                <AccountCircleIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Perfil con scroll"} />
+            </ListItem> */}
+            <ListItem
+              button
+              key={0}
+              //onClick={() => handleCLickOpcion("historico")}
+              onClick={() => {
+                navigate("/historico");
+              }}
+            >
               <ListItemIcon>
                 <UpdateIcon />
               </ListItemIcon>

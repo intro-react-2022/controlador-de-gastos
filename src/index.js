@@ -1,11 +1,19 @@
-import React, { Fragment } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
-import App from "./App";
+//import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { ThemeProvider } from "@mui/material/styles";
+import mainTheme from "./temas/mainTheme";
+import MainRouter from "./rutas/MainRouter";
 
+ReactDOM.render(
+  <ThemeProvider theme={mainTheme}>
+    <MainRouter />
+  </ThemeProvider>,
 
-ReactDOM.render(<App />, document.getElementById("root"));
+  document.getElementById("root")
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

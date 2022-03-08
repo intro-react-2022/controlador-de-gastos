@@ -1,19 +1,31 @@
 .contenedor-transacciones {
   display: flex;
+  flex-direction: column;
   width: 100%;
   /*  .titulo-transacciones{
         width: 100%;
     } */
   .seccion-izquierda {
-    width: 65%;
+    width: 100%;
     //outline: 1px solid crimson;
-    padding: 20px;
+    //padding: 20px;
   }
   .seccion-derecha {
-    width: 35%;
-    padding: 20px;
-
+    width: 100%;
+    //padding: 20px;
     //outline: 1px solid rgb(20, 71, 15);
+    .seccion-derecha-titulo{
+      margin-left: 20px;
+    }
+  }
+  @media (min-width: 900px) {
+    flex-direction: row;
+    .seccion-izquierda {
+      width: 65%;
+    }
+    .seccion-derecha {
+      width: 35%;
+    }
   }
 }
 
@@ -23,7 +35,7 @@
   margin-bottom: 15px;
 }
 .balance-monto {
-    font-size: 25px;
+  font-size: 40px;
   &.balance-ingreso {
     color: green;
   }
