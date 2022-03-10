@@ -1,6 +1,7 @@
 import { Button, Paper, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import AlertDialog from "../componentes/Dialogs/AlertDialog";
 import PageWrapper from "../componentes/PageWrapper/PageWrapper";
 import { iniciarSesion } from "../conection/auth";
 
@@ -12,7 +13,8 @@ const paddingInferior = {
 const Login = (props) => {
   //const { onLogin } = props;
   let navigate = useNavigate();
-
+  const [open, setOpen] = useState(false);
+  const [mensaje, setMensaje] = useState(undefined);
   const [credenciales, setCredenciales] = useState({});
   const handleClickIniciarSesion = () => {
     //alert("Inicio de sesión exitoso!");
@@ -27,7 +29,9 @@ const Login = (props) => {
       // aqui se ejecuta
       navigate("/perfil");
     } else {
-      alert(message);
+      //alert(message);
+      setMensaje(message);
+      setOpen(true);
     }
   };
   const handleRecuperarContrasenia = () => {
@@ -40,6 +44,7 @@ const Login = (props) => {
   const handleContrasenia = (e) => {
     setCredenciales({ ...credenciales, contrasenia: e.target.value });
   };
+
   return (
     <PageWrapper>
       <div
@@ -102,6 +107,21 @@ const Login = (props) => {
           </Button>
         </Paper>
       </div>
+      <AlertDialog
+        abrir={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        message={mensaje}
+        tipoAlerta="error"
+        // button1={}
+        button2={{
+          label: "Aceptar",
+          funcion: () => {
+            setOpen(false);
+          },
+        }}
+      />
     </PageWrapper>
   );
 };

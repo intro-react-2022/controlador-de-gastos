@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react";
 import BarraNavegacion from "../componentes/BarraNavegacion/BarraNavegacion";
 import SaveIcon from "@mui/icons-material/Save";
 import SelectorFechas from "../componentes/SelectorFechas/SelectorFechas";
+import AlertDialog from "../componentes/Dialogs/AlertDialog";
 const Perfil = (props) => {
   const [modoEdicion, setModoEdicion] = useState(false);
   const [nombres, setNombres] = useState("");
@@ -24,9 +25,18 @@ const Perfil = (props) => {
     setModoEdicion(true);
   };
   const handleSave = () => {
-    alert("Se guardaron los cambios");
+    // alert("Se guardaron los cambios");
+    setOpenW(true);
+    //setModoEdicion(false);
+  };
+  const handleContinuar = () => {
+    setOpenW(false);
+    setOpenC(true);
     setModoEdicion(false);
   };
+  //dialogs
+  const [openWarningDialog, setOpenW] = useState(false);
+  const [openConfirmationDialog, setOpenC] = useState(false);
   return (
     <BarraNavegacion titulo={"Controlador de gastos AEDITIP / Perfil"}>
       <Typography variant="h2" gutterBottom component="div">
@@ -179,230 +189,38 @@ const Perfil = (props) => {
           Guardar
         </Button>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          padding: "20px 0",
+      <AlertDialog
+        abrir={openWarningDialog}
+        onClose={() => {
+          setOpenW(false);
         }}
-      >
-        {!modoEdicion && (
-          <Button
-            variant="outlined"
-            onClick={handleModoEdicionOn}
-            style={{ marginRight: "5px" }}
-          >
-            Editar
-          </Button>
-        )}
-        <Button
-          variant="contained"
-          onClick={handleSave}
-          startIcon={<SaveIcon />}
-          disabled={!modoEdicion}
-        >
-          Guardar
-        </Button>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          padding: "20px 0",
+        message={"¿Desea guardar los cambios?"}
+        tipoAlerta="warning"
+        button1={{
+          label: "Cancelar",
+          funcion: () => {
+            setOpenW(false);
+          },
         }}
-      >
-        {!modoEdicion && (
-          <Button
-            variant="outlined"
-            onClick={handleModoEdicionOn}
-            style={{ marginRight: "5px" }}
-          >
-            Editar
-          </Button>
-        )}
-        <Button
-          variant="contained"
-          onClick={handleSave}
-          startIcon={<SaveIcon />}
-          disabled={!modoEdicion}
-        >
-          Guardar
-        </Button>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          padding: "20px 0",
+        button2={{
+          label: "Continuar",
+          funcion: handleContinuar,
         }}
-      >
-        {!modoEdicion && (
-          <Button
-            variant="outlined"
-            onClick={handleModoEdicionOn}
-            style={{ marginRight: "5px" }}
-          >
-            Editar
-          </Button>
-        )}
-        <Button
-          variant="contained"
-          onClick={handleSave}
-          startIcon={<SaveIcon />}
-          disabled={!modoEdicion}
-        >
-          Guardar
-        </Button>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          padding: "20px 0",
+      />
+      <AlertDialog
+        abrir={openConfirmationDialog}
+        onClose={() => {
+          setOpenC(false);
         }}
-      >
-        {!modoEdicion && (
-          <Button
-            variant="outlined"
-            onClick={handleModoEdicionOn}
-            style={{ marginRight: "5px" }}
-          >
-            Editar
-          </Button>
-        )}
-        <Button
-          variant="contained"
-          onClick={handleSave}
-          startIcon={<SaveIcon />}
-          disabled={!modoEdicion}
-        >
-          Guardar
-        </Button>
-        <Typography variant="h2" gutterBottom component="div">
-          Perfil
-        </Typography>
-
-        <Paper elevation={3}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <div
-              id="seccion-final"
-              style={{
-                width: "50%",
-                display: "flex",
-                flexDirection: "column",
-                padding: "15px",
-              }}
-            >
-              <TextField
-                style={paddingInferior}
-                required
-                id="outlined-required"
-                label="Nombres"
-                size="small"
-                onChange={handleChangeNombres}
-                //defaultValue="Hello World"
-                disabled={!modoEdicion}
-                value={nombres}
-              />
-              <TextField
-                style={paddingInferior}
-                required
-                id="outlined-required"
-                size="small"
-                label="Documento de Identidad"
-                //defaultValue="Hello World"
-                disabled={!modoEdicion}
-                value={documento}
-              />
-              <TextField
-                style={paddingInferior}
-                required
-                id="outlined-required"
-                label="Dirección"
-                size="small"
-                disabled={!modoEdicion}
-              />
-              <TextField
-                style={paddingInferior}
-                required
-                id="outlined-required"
-                label="Teléfono"
-                size="small"
-                disabled={!modoEdicion}
-              />
-              <TextField
-                style={paddingInferior}
-                required
-                id="outlined-required"
-                size="small"
-                label="Sector laboral"
-                disabled={!modoEdicion}
-              />
-            </div>
-            <div
-              style={{
-                width: "50%",
-                display: "flex",
-                flexDirection: "column",
-                padding: "15px",
-              }}
-            >
-              <TextField
-                style={paddingInferior}
-                required
-                id="outlined-required"
-                label="Apellidos"
-                size="small"
-                disabled={!modoEdicion}
-              />
-              {/*      <TextField
-              style={paddingInferior}
-              required
-              id="outlined-required"
-              label="Fecha e Nacimiento"
-              size="small"
-
-              //defaultValue="Hello World"
-            /> */}
-              <SelectorFechas
-                style={paddingInferior}
-                label="Fecha de Nacimiento"
-                size="small"
-                onChange={handleChangeFechaNacimiento}
-                value={fechaNacimiento}
-                disabled={!modoEdicion}
-              />
-              <TextField
-                style={paddingInferior}
-                required
-                id="outlined-required"
-                label="Email"
-                size="small"
-                disabled={!modoEdicion}
-              />
-              <TextField
-                style={paddingInferior}
-                required
-                id="outlined-required"
-                label="Ocupación"
-                size="small"
-                disabled={!modoEdicion}
-              />
-            </div>
-          </div>
-        </Paper>
-      </div>
+        message={"¡Cambios guardados exitosamente!"}
+        tipoAlerta="exito"
+        button2={{
+          label: "Continuar",
+          funcion: () => {
+            setOpenC(false);
+          },
+        }}
+      />
     </BarraNavegacion>
   );
 };
