@@ -160,12 +160,15 @@ export default function TablaDatos(props) {
           ).map((row, index) => (
             <TableRow key={index}>
               <TableCell component="th" scope="row">
-                {row.fecha.toLocaleDateString()}
+                {row.denominacion}
               </TableCell>
               <TableCell style={{ width: 160 }}>
-                {row.fecha.toLocaleTimeString()}
+                {new Date(row.fecha).toLocaleDateString()}
               </TableCell>
-              <TableCell style={{ width: 160 }}>{row.denominacion}</TableCell>
+              <TableCell style={{ width: 160 }}>
+                {" "}
+                {new Date(row.fecha).toLocaleTimeString()}
+              </TableCell>
               <TableCell style={{ width: 160 }}>{row.monto}</TableCell>
               <TableCell style={{ width: 160 }}>Iconos</TableCell>
             </TableRow>

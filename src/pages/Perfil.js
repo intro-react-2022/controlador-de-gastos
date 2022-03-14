@@ -1,19 +1,34 @@
 import { Button, Paper, TextField, Typography } from "@mui/material";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import BarraNavegacion from "../componentes/BarraNavegacion/BarraNavegacion";
 import SaveIcon from "@mui/icons-material/Save";
 import SelectorFechas from "../componentes/SelectorFechas/SelectorFechas";
 import AlertDialog from "../componentes/Dialogs/AlertDialog";
 const Perfil = (props) => {
+  const { usuario } = props;
+
   const [modoEdicion, setModoEdicion] = useState(false);
   const [nombres, setNombres] = useState("");
-  const [documento, setDocumento] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [documentoIdentidad, setDocumentoIdentidad] = useState("");
+  //const [fechaNacimiento, setFechaNacimiento] = useState("");
+  const [ocupacion, setOcupacion] = useState("");
+  const [sectorLaboral, setSectorLaboral] = useState("");
+  const [telefono, setTelefono] = useState("");
 
   const handleChangeNombres = (event) => {
     setNombres(event.target.value);
   };
+  const handleChangeApellidos = (event) => {
+    setApellidos(event.target.value);
+  };
+  const handleChangeDireccion = (event) => {
+    setDireccion(event.target.value);
+  };
   const handleChangeDocumento = (event) => {
-    setDocumento(event.target.value);
+    setDocumentoIdentidad(event.target.value);
   };
   /// Fecha
   const [fechaNacimiento, setFechaNacimiento] = useState(null);
@@ -37,6 +52,32 @@ const Perfil = (props) => {
   //dialogs
   const [openWarningDialog, setOpenW] = useState(false);
   const [openConfirmationDialog, setOpenC] = useState(false);
+
+  useEffect(() => {
+    if (usuario) {
+      const {
+        nombres,
+        apellidos,
+        correo,
+        direccion,
+        documentoIdentidad,
+        ocupacion,
+        sectorLaboral,
+        telefono,
+        fechaNacimiento,
+      } = usuario;
+      setNombres(nombres);
+      setApellidos(apellidos);
+      setCorreo(correo);
+      setDireccion(direccion);
+      setDocumentoIdentidad(documentoIdentidad);
+      setOcupacion(ocupacion);
+      setSectorLaboral(sectorLaboral);
+      setTelefono(telefono);
+      setFechaNacimiento(fechaNacimiento);
+    }
+  }, [usuario]);
+
   return (
     <BarraNavegacion titulo={"Controlador de gastos AEDITIP / Perfil"}>
       <Typography variant="h2" gutterBottom component="div">
@@ -77,9 +118,10 @@ const Perfil = (props) => {
               id="outlined-required"
               size="small"
               label="Documento de Identidad"
+              onChange={handleChangeDocumento}
               //defaultValue="Hello World"
               disabled={!modoEdicion}
-              value={documento}
+              value={documentoIdentidad}
             />
             <TextField
               style={paddingInferior}
@@ -87,7 +129,9 @@ const Perfil = (props) => {
               id="outlined-required"
               label="Dirección"
               size="small"
+              onChange={handleChangeDireccion}
               disabled={!modoEdicion}
+              value={direccion}
             />
             <TextField
               style={paddingInferior}
@@ -96,6 +140,9 @@ const Perfil = (props) => {
               label="Teléfono"
               size="small"
               disabled={!modoEdicion}
+              //onChange={handle}
+
+              value={telefono}
             />
             <TextField
               style={paddingInferior}
@@ -104,6 +151,7 @@ const Perfil = (props) => {
               size="small"
               label="Sector laboral"
               disabled={!modoEdicion}
+              value={sectorLaboral}
             />
           </div>
           <div
@@ -121,6 +169,8 @@ const Perfil = (props) => {
               label="Apellidos"
               size="small"
               disabled={!modoEdicion}
+              value={apellidos}
+              onChange={handleChangeApellidos}
             />
             {/*      <TextField
               style={paddingInferior}
@@ -146,6 +196,7 @@ const Perfil = (props) => {
               label="Email"
               size="small"
               disabled={!modoEdicion}
+              value={correo}
             />
             <TextField
               style={paddingInferior}
@@ -154,6 +205,7 @@ const Perfil = (props) => {
               label="Ocupación"
               size="small"
               disabled={!modoEdicion}
+              value={ocupacion}
             />
           </div>
         </div>

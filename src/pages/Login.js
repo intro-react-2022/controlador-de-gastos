@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import AlertDialog from "../componentes/Dialogs/AlertDialog";
 import PageWrapper from "../componentes/PageWrapper/PageWrapper";
-import { iniciarSesion } from "../conection/auth";
+import { iniciarSesion, iniciarSesionBackend } from "../conection/auth";
 
 const paddingInferior = {
   marginBottom: "18px",
@@ -11,22 +11,22 @@ const paddingInferior = {
 };
 
 const Login = (props) => {
-  //const { onLogin } = props;
+  const { onLogin } = props;
   let navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [mensaje, setMensaje] = useState(undefined);
   const [credenciales, setCredenciales] = useState({});
-  const handleClickIniciarSesion = () => {
-    //alert("Inicio de sesión exitoso!");
-    // const response = server.login("usuario", "password")
-    //if (response) onLogin(); else{ alert("error")}
-    const { ok, payload, message } = iniciarSesion(
+  const handleClickIniciarSesion = async () => {
+    
+    const { ok, payload, message } = await iniciarSesionBackend(
       credenciales.correo,
       credenciales.contrasenia
     );
-    console.log("Usuario", payload);
+    console.log("Login=>", ok, payload, message);
+    onLogin?.(payload);
     if (ok) {
       // aqui se ejecuta
+
       navigate("/perfil");
     } else {
       //alert(message);

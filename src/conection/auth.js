@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const usuarios_DB = [
   {
     nombre: "Helena Grisky",
@@ -38,11 +40,11 @@ export const iniciarSesion = (correo, contrasenia) => {
       if (usuarioEncontrado.contrasenia === contrasenia) {
         return {
           ok: true,
-          payload: {...usuarioEncontrado},
+          payload: { ...usuarioEncontrado },
           message: "Inicio desesión exitoso",
         };
       } else {
-          //contraseña incorrecta
+        //contraseña incorrecta
         return {
           ok: false,
           payload: {},
@@ -56,5 +58,18 @@ export const iniciarSesion = (correo, contrasenia) => {
       payload: {},
       message: "El correo ingresado es incorrecto",
     };
+  }
+};
+
+export const iniciarSesionBackend = async (correo, contrasenia) => {
+  const response = await axios.post("http://localhost:2800/usuario/auth", {
+    correo: correo,
+    contrasenia: contrasenia,
+  });
+  //console.log("Login=>", response);
+  if (response && response.data) {
+    return response.data;
+  } else {
+    return { ok: false, payload: {}, message: "Error inesperado" };
   }
 };

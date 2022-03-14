@@ -1,58 +1,31 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { InputAdornment, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BarraNavegacion from "../componentes/BarraNavegacion/BarraNavegacion";
 import SelectorFechas from "../componentes/SelectorFechas/SelectorFechas";
 import TablaDatos from "../componentes/Tabla/TablaDatos";
 import "./Historico.scss";
-const headers=[
-  "Fecha","Hora", "Descripcion", "Monto ($)", "Acciones"
-];
+import { listarActividades } from "../conection/actividades";
+const headers = ["Fecha", "Hora", "Descripcion", "Monto ($)", "Acciones"];
 const Historico = (props) => {
-  const [actividades,setActividades]=useState([ {
-    idUsuario: 1,
-    idActividad: 1,
-    denominacion: "Dia navideño",
-    monto: 2405,
-    fecha: new Date(),
-  },{
-    idUsuario: 1,
-    idActividad: 1,
-    denominacion: "Dia navideño",
-    monto: 2405,
-    fecha: new Date(),
-  },{
-    idUsuario: 1,
-    idActividad: 1,
-    denominacion: "Dia navideño",
-    monto: 2405,
-    fecha: new Date(),
-  },{
-    idUsuario: 1,
-    idActividad: 1,
-    denominacion: "Dia navideño",
-    monto: 2405,
-    fecha: new Date(),
-  },
-  {
-    idUsuario: 1,
-    idActividad: 2,
-    denominacion: "Viaje a Rusia 2018",
-    monto: 1800,
-    fecha: new Date(),
-  },
-  {
-    idUsuario: 1,
-    idActividad: 3,
-    denominacion: "Dia de San Calentin",
-    monto: -320,
-    fecha: new Date(),
-  },]);
+  const { usuario } = props;
+  const [actividades, setActividades] = useState([]);
   /// Fecha
   const [fechaNacimiento, setFechaNacimiento] = useState(null);
   const handleChangeFechaNacimiento = (fechaActual) => {
     setFechaNacimiento(fechaActual);
   };
+  const llamarDatos = async () => {
+    const { ok, payload, message } = await listarActividades(usuario.idUsuario);
+    if (!ok) {
+      alert(message);
+    } else {
+      setActividades(payload);
+    }
+  };
+  useEffect(() => {
+    llamarDatos();
+  }, []);
   return (
     <BarraNavegacion
       //onCerarSesion={handleOnLogout}
@@ -86,7 +59,7 @@ const Historico = (props) => {
           variant="standard"
         />
       </div>
-      <TablaDatos headers={headers} rows={actividades}/>
+      <TablaDatos headers={headers} rows={actividades} />
     </BarraNavegacion>
   );
 };
