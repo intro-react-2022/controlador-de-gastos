@@ -29,6 +29,7 @@ const paddingInferior = {
 };
 
 const Transacciones = (props) => {
+  const { onLogout } = props;
   const [currentId, setCurrentId] = React.useState(0);
   const [transacciones, setTransacciones] = React.useState([
     { id: 10, desc: "payment", monto: 100, esIngreso: true },
@@ -52,8 +53,8 @@ const Transacciones = (props) => {
   // states del formulario en dialog
   const [descripcion, setDescripcion] = React.useState("");
   const [cantidad, setCantidad] = React.useState(0);
-  const handleEliminar = (evt,idTransaccion) => {
-    console.log("ID",idTransaccion);
+  const handleEliminar = (evt, idTransaccion) => {
+    console.log("ID", idTransaccion);
     setTransacciones(
       transacciones.filter((transaccion) => transaccion.id !== idTransaccion)
     );
@@ -116,6 +117,9 @@ const Transacciones = (props) => {
         //onCerarSesion={handleOnLogout}
         //onCambioDeVista={handleCambiarDeVista}
         titulo={"Controlador de gastos AEDITIP / Transacciones"}
+        onLogout={() => {
+          onLogout?.();
+        }}
       >
         <div className="contenedor-transacciones">
           <div className="seccion-izquierda">

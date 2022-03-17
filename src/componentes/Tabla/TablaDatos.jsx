@@ -132,24 +132,11 @@ export default function TablaDatos(props) {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow style={{ backgroundColor: "#000000" }}>
-            {headers.map((header, index) => (
+            {headers.map(({ header }, index) => (
               <TableCell key={index} style={headerStyle}>
                 {header}
               </TableCell>
             ))}
-            {/*   <TableCell style={headerStyle}>Dessert (100g serving)</TableCell>
-            <TableCell align="right" style={headerStyle}>
-              Calories
-            </TableCell>
-            <TableCell style={headerStyle} align="right">
-              Fat&nbsp;(g)
-            </TableCell>
-            <TableCell style={headerStyle} align="right">
-              Carbs&nbsp;(g)
-            </TableCell>
-            <TableCell style={headerStyle} align="right">
-              Protein&nbsp;(g)
-            </TableCell> */}
           </TableRow>
         </TableHead>
 
@@ -159,7 +146,12 @@ export default function TablaDatos(props) {
             : rows
           ).map((row, index) => (
             <TableRow key={index}>
-              <TableCell component="th" scope="row">
+              {headers.map((header, index) => (
+                <TableCell component="th" scope="row">
+                  {header.render ? header.render() : row[header.name]}
+                </TableCell>
+              ))}
+             {/*  <TableCell component="th" scope="row">
                 {row.denominacion}
               </TableCell>
               <TableCell style={{ width: 160 }}>
@@ -170,7 +162,7 @@ export default function TablaDatos(props) {
                 {new Date(row.fecha).toLocaleTimeString()}
               </TableCell>
               <TableCell style={{ width: 160 }}>{row.monto}</TableCell>
-              <TableCell style={{ width: 160 }}>Iconos</TableCell>
+              <TableCell style={{ width: 160 }}>{row.icons}</TableCell> */}
             </TableRow>
           ))}
 

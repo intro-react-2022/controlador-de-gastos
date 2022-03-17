@@ -18,10 +18,11 @@ import { useNavigate } from "react-router";
 const drawerWidth = 240;
 
 const BarraNavegacion = (props) => {
-  const { children, titulo } = props;
+  const { children, titulo, onLogout } = props;
   let navigate = useNavigate();
   const handleCerrarSesion = () => {
     //onCerarSesion?.();
+    onLogout?.();
     navigate("/");
   };
   /*  function handleCLickOpcion(vista) {

@@ -5,7 +5,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import SelectorFechas from "../componentes/SelectorFechas/SelectorFechas";
 import AlertDialog from "../componentes/Dialogs/AlertDialog";
 const Perfil = (props) => {
-  const { usuario } = props;
+  const { usuario, onLogout } = props;
 
   const [modoEdicion, setModoEdicion] = useState(false);
   const [nombres, setNombres] = useState("");
@@ -79,7 +79,12 @@ const Perfil = (props) => {
   }, [usuario]);
 
   return (
-    <BarraNavegacion titulo={"Controlador de gastos AEDITIP / Perfil"}>
+    <BarraNavegacion
+      titulo={"Controlador de gastos AEDITIP / Perfil"}
+      onLogout={() => {
+        onLogout?.();
+      }}
+    >
       <Typography variant="h2" gutterBottom component="div">
         Perfil
       </Typography>
