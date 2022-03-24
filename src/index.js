@@ -6,10 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@mui/material/styles";
 import mainTheme from "./temas/mainTheme";
 import MainRouter from "./rutas/MainRouter";
+import { UserProvider } from "./globals/contexts/userContext";
 
 ReactDOM.render(
   <ThemeProvider theme={mainTheme}>
-    <MainRouter />
+    <UserProvider initialValue={{}}>
+      <MainRouter />
+    </UserProvider>
   </ThemeProvider>,
 
   document.getElementById("root")

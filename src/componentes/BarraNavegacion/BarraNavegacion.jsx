@@ -19,6 +19,7 @@ const drawerWidth = 240;
 
 const BarraNavegacion = (props) => {
   const { children, titulo, onLogout } = props;
+  //const [usuarioContext, setUsuarioContext] = useContext(UserContext);
   let navigate = useNavigate();
   const handleCerrarSesion = () => {
     //onCerarSesion?.();

@@ -148,7 +148,7 @@ export default function TablaDatos(props) {
             <TableRow key={index}>
               {headers.map((header, index) => (
                 <TableCell component="th" scope="row">
-                  {header.render ? header.render() : row[header.name]}
+                  {header.render ? header.render(row) : row[header.name]}
                 </TableCell>
               ))}
              {/*  <TableCell component="th" scope="row">

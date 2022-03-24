@@ -62,14 +62,23 @@ export const iniciarSesion = (correo, contrasenia) => {
 };
 
 export const iniciarSesionBackend = async (correo, contrasenia) => {
-  const response = await axios.post("http://localhost:2800/usuario/auth", {
+  const body = {
     correo: correo,
     contrasenia: contrasenia,
-  });
-  //console.log("Login=>", response);
-  if (response && response.data) {
-    return response.data;
-  } else {
-    return { ok: false, payload: {}, message: "Error inesperado" };
+  };
+  try {
+    const response = await axios.post(
+      "http://localhost:2800/usuario/auth",
+      body
+    );
+    //console.log("Login=>", response);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      return { ok: false, payload: {}, message: "Error inesperado" };
+    }
+  } catch (error) {
+    console.error("login error: ", error);
+    return { ok: false, payload: {}, message: "Error en servidor" };
   }
 };
